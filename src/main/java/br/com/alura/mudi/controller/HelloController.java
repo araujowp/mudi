@@ -1,4 +1,4 @@
-package br.com.alura.mudi;
+package br.com.alura.mudi.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
