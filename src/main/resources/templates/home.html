@@ -10,18 +10,23 @@
 		<nav
 			class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="">Todos</a> <a
-					class="nav-item nav-link" href="">Aguardando</a> <a
-					class="nav-item nav-link" href="">Aprovado</a> <a
-					class="nav-item nav-link" href="">Entregue</a>
+				<a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" href="/home">Todos</a>
+				<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-item nav-link" href="/home/aguardando">Aguardando</a>
+				<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-item nav-link" href="/home/aprovado">Aprovado</a> 
+				<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-item nav-link" href="/home/entregue">Entregue</a>
 			</div>
 			<a href="/pedido/formulario">
 				<button	class="btn btn-outline-secondary my-2 my-sm-0">Novo</button>
 			</a>
 		</nav>
 		<div class="card mt-3" th:each="pedido : ${pedidos}">
-			<div class="card-header" th:text="${pedido.NomeProduto}">Nome
-				do produto</div>
+		
+			<th:block th:switch="${pedido.status.name()}">
+				<div th:case="'AGUARDANDO'" class="card-header alert alert-warning" th:text="${pedido.NomeProduto}">Nome do produto</div>
+				<div th:case="'APROVADO'" class="card-header alert alert-success" th:text="${pedido.NomeProduto}">Nome do produto</div>
+				<div th:case="'ENTREGUE'" class="card-header alert alert-dark" th:text="${pedido.NomeProduto}">Nome do produto</div>
+			</th:block>
+			
 			<div class="card-body">
 
 				<div class="row">
@@ -41,9 +46,9 @@
 								value="url do produto">
 						</div>
 
-						<div>Descri��o</div>
+						<div>Descrição</div>
 						<div>
-							<textarea class="form-control" th:text="${pedido.descricao}">descric��o do pedido</textarea>
+							<textarea class="form-control" th:text="${pedido.descricao}">descricão do pedido</textarea>
 						</div>
 					</div>
 
